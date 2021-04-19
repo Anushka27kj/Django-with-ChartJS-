@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Clubs Ranking{% endblock title %} 
+
+{% block script %}
+<script>
+    $(document).ready(function(){
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: [{% for item in qs %}'{{item.name}}', {% endfor %}],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [{% for item in qs %}{{item.money}}, {% endfor %}],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'lightblack',
+                        'rgba(255, 159, 64, 0.2)',
+                        'orange',
+                        'lightgrey',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgb(240,30,50,.7)',
+                        'green'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endblock script %}
+
+{% block content %}
+    <canvas id="myChart" width="500px" height="300px"></canvas>
+{% endblock content %}
+
+
